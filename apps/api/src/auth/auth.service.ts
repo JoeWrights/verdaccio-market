@@ -1,7 +1,8 @@
 import { Injectable } from "@nestjs/common";
-import type { LoginRequestDto, SessionUserDto } from "@verdaccio-market/types";
+import type { SessionUserDto } from "@verdaccio-market/types";
 import { AppException } from "../common/exceptions/app-exception";
 import { AuditService } from "../audit/audit.service";
+import type { LoginDto } from "./dto";
 import { SessionService } from "./session.service";
 import { VerdaccioClientService } from "../verdaccio/verdaccio-client.service";
 
@@ -13,7 +14,7 @@ export class AuthService {
     private readonly auditService: AuditService
   ) {}
 
-  public async login(input: LoginRequestDto): Promise<{ sid: string; user: SessionUserDto }> {
+  public async login(input: LoginDto): Promise<{ sid: string; user: SessionUserDto }> {
     if (!input.token?.trim()) {
       throw new AppException("VALIDATION_ERROR", "token 不能为空。", 400);
     }

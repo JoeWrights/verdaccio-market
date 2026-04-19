@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Param, Put, Req, UseGuards } from "@nestjs/common";
 import type { Request } from "express";
 import { WriteAuthGuard } from "../auth/guards/write-auth.guard";
+import { PackageTagParamDto, UpsertTagBodyDto } from "./dto";
 import { DistTagsService } from "./dist-tags.service";
 
 interface RequestWithAuth extends Request {
@@ -15,14 +16,13 @@ export class DistTagsController {
   @Put(":tagName")
   @UseGuards(WriteAuthGuard)
   public async upsertTag(
-    @Param("packageName") packageName: string,
-    @Param("tagName") tagName: string,
-    @Body() body: { version: string },
+    @Param() params: PackageTagParamDto,
+    @Body() body: UpsertTagBodyDto,
     @Req() req: RequestWithAuth
   ): Promise<{ ok: true }> {
     return this.distTagsService.upsertTag({
-      packageName,
-      tagName,
+      packageName: params.packageName,
+      tagName: params.tagName,
       version: body.version,
       token: req.authToken ?? "",
       operator: req.authUser ?? "unknown-user"
@@ -31,14 +31,10 @@ export class DistTagsController {
 
   @Delete(":tagName")
   @UseGuards(WriteAuthGuard)
-  public async deleteTag(
-    @Param("packageName") packageName: string,
-    @Param("tagName") tagName: string,
-    @Req() req: RequestWithAuth
-  ): Promise<{ ok: true }> {
+  public async deleteTag(@Param() params: PackageTagParamDto, @Req() req: RequestWithAuth): Promise<{ ok: true }> {
     return this.distTagsService.deleteTag({
-      packageName,
-      tagName,
+      packageName: params.packageName,
+      tagName: params.tagName,
       token: req.authToken ?? "",
       operator: req.authUser ?? "unknown-user"
     });

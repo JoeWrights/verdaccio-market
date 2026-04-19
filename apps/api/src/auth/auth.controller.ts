@@ -1,7 +1,8 @@
 import { Body, Controller, Get, Post, Req, Res } from "@nestjs/common";
 import type { Request, Response } from "express";
-import type { LoginRequestDto, SessionUserDto } from "@verdaccio-market/types";
+import type { SessionUserDto } from "@verdaccio-market/types";
 import { AppException } from "../common/exceptions/app-exception";
+import { LoginDto } from "./dto";
 import { AuthService } from "./auth.service";
 
 @Controller("auth")
@@ -10,7 +11,7 @@ export class AuthController {
 
   @Post("login")
   public async login(
-    @Body() body: LoginRequestDto,
+    @Body() body: LoginDto,
     @Res({ passthrough: true }) response: Response
   ): Promise<SessionUserDto> {
     const result = await this.authService.login(body);
