@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "highlight.js/styles/github.css";
+
+@layer base {
+  :root {
+    --background: 0 0% 97%;
+    --foreground: 220 20% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 12%;
+    --primary: 102 27% 31%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 20% 95%;
+    --secondary-foreground: 222 20% 14%;
+    --muted: 210 18% 92%;
+    --muted-foreground: 215 15% 40%;
+    --border: 214 18% 88%;
+    --input: 214 18% 88%;
+    --ring: 102 27% 40%;
+    --radius: 0.6rem;
+  }
+
+  .dark {
+    --background: 222 28% 8%;
+    --foreground: 210 30% 95%;
+    --card: 222 24% 12%;
+    --card-foreground: 210 30% 95%;
+    --primary: 106 28% 52%;
+    --primary-foreground: 220 30% 8%;
+    --secondary: 221 18% 18%;
+    --secondary-foreground: 210 25% 94%;
+    --muted: 220 16% 16%;
+    --muted-foreground: 215 16% 70%;
+    --border: 220 16% 24%;
+    --input: 220 16% 24%;
+    --ring: 106 28% 52%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+}
+
+@layer components {
+  .app-shell {
+    @apply min-h-screen;
+  }
+
+  .container-main {
+    @apply mx-auto max-w-6xl px-4 md:px-6;
+  }
+
+  .readme-content pre {
+    @apply overflow-auto rounded-md bg-muted p-3 text-xs;
+  }
+
+  .readme-code-block {
+    @apply relative;
+  }
+
+  .readme-copy-btn {
+    @apply absolute right-2 top-2 rounded border border-border bg-background px-2 py-1 text-[11px] text-muted-foreground hover:text-foreground;
+  }
+
+  .readme-content code {
+    @apply rounded bg-muted px-1 py-0.5 text-xs;
+  }
+
+  .readme-content pre code {
+    @apply bg-transparent p-0 text-xs;
+  }
+
+  .readme-content blockquote {
+    @apply my-3 border-l-4 border-border pl-3 text-sm text-muted-foreground;
+  }
+
+  .readme-content ul,
+  .readme-content ol {
+    @apply my-3 list-inside;
+  }
+
+  .readme-content a {
+    @apply text-primary underline;
+  }
+
+  .readme-content h1,
+  .readme-content h2,
+  .readme-content h3 {
+    @apply mt-6 text-lg font-semibold;
+  }
+
+  .readme-content p,
+  .readme-content li {
+    @apply text-sm leading-6 text-foreground/90;
+  }
+}
+
+/* GitHub Dark 代码高亮（跟随 .dark 主题） */
+.dark .hljs {
+  color: #c9d1d9;
+  background: #0d1117;
+}
+
+.dark .hljs-doctag,
+.dark .hljs-keyword,
+.dark .hljs-meta .hljs-keyword,
+.dark .hljs-template-tag,
+.dark .hljs-template-variable,
+.dark .hljs-type,
+.dark .hljs-variable.language_ {
+  color: #ff7b72;
+}
+
+.dark .hljs-title,
+.dark .hljs-title.class_,
+.dark .hljs-title.class_.inherited__,
+.dark .hljs-title.function_ {
+  color: #d2a8ff;
+}
+
+.dark .hljs-attr,
+.dark .hljs-attribute,
+.dark .hljs-literal,
+.dark .hljs-meta,
+.dark .hljs-number,
+.dark .hljs-operator,
+.dark .hljs-variable,
+.dark .hljs-selector-attr,
+.dark .hljs-selector-class,
+.dark .hljs-selector-id {
+  color: #79c0ff;
+}
+
+.dark .hljs-regexp,
+.dark .hljs-string,
+.dark .hljs-meta .hljs-string {
+  color: #a5d6ff;
+}
+
+.dark .hljs-built_in,
+.dark .hljs-symbol {
+  color: #ffa657;
+}
+
+.dark .hljs-comment,
+.dark .hljs-code,
+.dark .hljs-formula {
+  color: #8b949e;
+}
+
+.dark .hljs-name,
+.dark .hljs-quote,
+.dark .hljs-selector-tag,
+.dark .hljs-selector-pseudo {
+  color: #7ee787;
+}
+
+.dark .hljs-subst {
+  color: #c9d1d9;
+}
+
+.dark .hljs-section {
+  color: #1f6feb;
+  font-weight: 700;
+}
+
+.dark .hljs-bullet {
+  color: #f2cc60;
+}
+
+.dark .hljs-emphasis {
+  color: #c9d1d9;
+  font-style: italic;
+}
+
+.dark .hljs-strong {
+  color: #c9d1d9;
+  font-weight: 700;
+}
+
+.dark .hljs-addition {
+  color: #aff5b4;
+  background-color: #033a16;
+}
+
+.dark .hljs-deletion {
+  color: #ffdcd7;
+  background-color: #67060c;
+}

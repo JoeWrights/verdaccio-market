@@ -1,0 +1,13 @@
+{
+  "name": "@verdaccio-market/tsconfig",
+  "version": "0.1.0",
+  "private": true,
+  "files": ["*.json"],
+  "scripts": {
+    "build": "echo \"tsconfig: nothing to build\"",
+    "dev": "echo \"tsconfig: no dev\"",
+    "lint": "echo \"tsconfig: skip lint\"",
+    "test": "echo \"tsconfig: no test\"",
+    "typecheck": "echo \"tsconfig: no typecheck\""
+  }
+}
