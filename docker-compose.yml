@@ -1,0 +1,63 @@
+services:
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: verdaccio-markplace-nginx
+    restart: unless-stopped
+    depends_on:
+      - web
+      - api
+      - verdaccio
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - app-network
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+      args:
+        PUBLIC_BASE_PATH: /verdaccio/
+        PUBLIC_API_BASE_URL: /verdaccio/api/v1
+    container_name: verdaccio-markplace-web
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: verdaccio-markplace-api
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      VERDACCIO_URL: http://verdaccio:4873
+    depends_on:
+      - verdaccio
+    networks:
+      - app-network
+
+  verdaccio:
+    image: verdaccio/verdaccio:6
+    container_name: verdaccio-markplace-registry
+    restart: unless-stopped
+    user: "0"
+    volumes:
+      - verdaccio-storage:/verdaccio/storage
+      - verdaccio-plugins:/verdaccio/plugins
+      - ./docker/verdaccio/config.yaml:/verdaccio/conf/config.yaml:ro
+      - ./docker/verdaccio/htpasswd:/verdaccio/conf/htpasswd
+    networks:
+      - app-network
+
+volumes:
+  verdaccio-storage:
+  verdaccio-plugins:
+
+networks:
+  app-network:
+    driver: bridge

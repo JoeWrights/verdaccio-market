@@ -3,6 +3,9 @@ import { pluginReact } from "@rsbuild/plugin-react";
 
 export default defineConfig({
   plugins: [pluginReact()],
+  output: {
+    assetPrefix: process.env.PUBLIC_BASE_PATH ?? "/"
+  },
   server: {
     port: 5173,
     proxy: {

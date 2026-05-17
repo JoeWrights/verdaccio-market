@@ -14,34 +14,39 @@ if (!container) {
   throw new Error("Root 容器不存在");
 }
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <App />,
+      children: [
+        {
+          index: true,
+          element: <Navigate to="/packages" replace />
+        },
+        {
+          path: "packages",
+          element: <PackagesPage />
+        },
+        {
+          path: "packages/:packageName",
+          element: <PackageDetailPage />
+        },
+        {
+          path: "audits",
+          element: <AuditPage />
+        },
+        {
+          path: "login",
+          element: <LoginPage />
+        }
+      ]
+    }
+  ],
   {
-    path: "/",
-    element: <App />,
-    children: [
-      {
-        index: true,
-        element: <Navigate to="/packages" replace />
-      },
-      {
-        path: "packages",
-        element: <PackagesPage />
-      },
-      {
-        path: "packages/:packageName",
-        element: <PackageDetailPage />
-      },
-      {
-        path: "audits",
-        element: <AuditPage />
-      },
-      {
-        path: "login",
-        element: <LoginPage />
-      }
-    ]
+    basename: import.meta.env.PUBLIC_BASE_PATH ?? "/"
   }
-]);
+);
 
 createRoot(container).render(
   <React.StrictMode>

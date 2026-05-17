@@ -1,0 +1,8 @@
+.git
+.turbo
+.deploy
+.DS_Store
+node_modules
+**/node_modules
+**/dist
+*.tar.gz

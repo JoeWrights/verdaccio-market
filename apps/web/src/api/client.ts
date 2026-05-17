@@ -7,8 +7,10 @@ export interface ApiClientError {
   statusCode: number;
 }
 
+const apiBaseUrl = import.meta.env.PUBLIC_API_BASE_URL ?? "/api/v1";
+
 export const apiClient = axios.create({
-  baseURL: "/api/v1",
+  baseURL: apiBaseUrl,
   timeout: 8000,
   withCredentials: true
 });
